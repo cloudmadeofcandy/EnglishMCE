@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>English Multiple Choice Test</title>
+<!--    <link rel="stylesheet" href="../resources/css/style.css">-->
+    <link rel="stylesheet" href="/resources/css/style.css">
+</head>
+<body>
+<h1 style="text-align: center">English Test</h1>
+<div id="qwerty"></div>
+<div>
+    <button id="submit1" type="submit" onclick="getAllAnswers(array)">Submit answer</button>
+</div>
+<div>
+    <button id="submit2" type="button" onclick="getAnswer()">Fetch!</button>
+</div>
+<script>
+    function getAnswer() {
+        const url = "http://localhost:5000/answer";
+        fetch(url, {method: "GET"})
+        .then(hello => hello.json())
+        .then(hello => {
+            for (let i of hello) {
+                input(i);
+            }
+        });
+    }
+
+    function input(appy) {
+        let container = document.createElement("div");
+        container.setAttribute("class", "containers");
+        let form = document.createElement("form");
+        form.setAttribute("id", appy.ID);
+        let divA = document.createElement("div");
+        let divB = document.createElement("div");
+        let divC = document.createElement("div");
+        let divD = document.createElement("div");
+        let ques = document.createElement("h1");
+        let A = document.createElement("input");
+        let B = document.createElement("input");
+        let C = document.createElement("input");
+        let D = document.createElement("input");
+        A.setAttribute("id", appy.ID + "A");
+        B.setAttribute("id", appy.ID + "B");
+        C.setAttribute("id", appy.ID + "C");
+        D.setAttribute("id", appy.ID + "D");
+        A.setAttribute("type", "radio");
+        B.setAttribute("type", "radio");
+        C.setAttribute("type", "radio");
+        D.setAttribute("type", "radio");
+        ques.innerText = appy.QUESTION;
+        A.setAttribute("name", "a1");
+        B.setAttribute("name", "a1");
+        C.setAttribute("name", "a1");
+        D.setAttribute("name", "a1");
+        A.setAttribute("value", appy.A);
+        B.setAttribute("value", appy.B);
+        C.setAttribute("value", appy.C);
+        D.setAttribute("value", appy.D);
+        let lA = document.createElement("label");
+        let lB = document.createElement("label");
+        let lC = document.createElement("label");
+        let lD = document.createElement("label");
+        lA.setAttribute("for", appy.ID + "A");
+        lA.innerText += appy.A;
+        lB.setAttribute("for", appy.ID + "B");
+        lB.innerText += appy.B;
+        lC.setAttribute("for", appy.ID + "C");
+        lC.innerText += appy.C;
+        lD.setAttribute("for", appy.ID + "D");
+        lD.innerText += appy.D;
+        divA.append(A);
+        divB.append(B);
+        divC.append(C);
+        divD.append(D);
+        divA.append(lA);
+        divB.append(lB);
+        divC.append(lC);
+        divD.append(lD);
+        form.append(ques);
+        form.append(divA);
+        form.append(divB);
+        form.append(divC);
+        form.append(divD);
+        container.append(form);
+        // container.append(document.createElement(""));
+        document.body.append(container);
+    }
+
+
+    let array = new Map();
+    function getAllAnswers(array) {
+        let forms = document.getElementsByTagName("form");
+        for (let i of forms) {
+                var radVal = i.a1.value;
+                array[i.id] = radVal;
+        };
+        console.log(array);
+    }
+
+</script>
+</body>
+
+<footer>Created by Truong Quoc Quan. Creative Common Project.</footer>
+</html>

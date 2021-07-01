@@ -1,0 +1,59 @@
+
+body {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*height: 100vh;*/
+    font-family: Calibri;
+}
+
+body::before {
+    content: "";
+    /*background-image: url("../images/northern.jpg");*/ /*for running directly with html files*/
+    background-image: url("/resources/images/northernlights1.jpg"); /*for vertx*/
+    opacity: 0.25;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+
+ label {
+
+ }
+
+
+
+ .containers {
+     height: fit-content;
+     border: black;
+     border-style: dashed;
+     display: flex;
+     border-radius: 30px;
+     padding: 70px;
+     margin-inline: 20vw;
+     background-color: white;
+ }
+
+
+/*input[type="radio" i] {*/
+/*    background-color: initial;*/
+/*    cursor: crosshair;*/
+/*    appearance: auto;*/
+/*    box-sizing: border-box;*/
+/*    margin: 3px 3px 0px 5px;*/
+/*    padding: initial;*/
+/*    border: initial;*/
+/*}*/
+
+ footer {
+     text-align: center;
+     padding: 10px;
+ }
+
+
+
