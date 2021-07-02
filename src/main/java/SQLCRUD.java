@@ -8,17 +8,14 @@ import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.RoutingContext;
 
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 public class SQLCRUD {
 
     private final JDBCClient jdbc;
-
+    private List<JsonObject> objects = new ArrayList<>();
     public SQLCRUD(Vertx vertx) {
         JsonObject config = new JsonObject("{\n" +
                 "  \"db\": {\n" +
@@ -28,6 +25,10 @@ public class SQLCRUD {
                 "  }\n" +
                 "}").getJsonObject("db");
         jdbc = JDBCClient.createShared(vertx,config,"EnglishMCETestBank");
+    }
+
+    public List<JsonObject> getObjects() {
+        return objects;
     }
 
     public void startBackend(Handler<AsyncResult<SQLConnection>> next, Future<Void> fut) {
@@ -43,12 +44,30 @@ public class SQLCRUD {
     }
 
 
-    public void getAll(RoutingContext routingContext) {
+//    public void getAll(RoutingContext routingContext) {
+//        this.jdbc.getConnection(ar -> {
+//            SQLConnection connection = ar.result();
+//            connection.query("select * from question", result -> {
+//                List<JsonObject> results = new ArrayList<>();
+//                results = result.result().getRows();
+//                routingContext.response()
+//                        .putHeader("content-type", "application/json; charset=utf-8")
+//                        .end(Json.encodePrettily(results));
+//                connection.close(); // Close the connection
+//            });
+//        });
+//    }
+
+    public void getAllret(RoutingContext routingContext) {
+        objects = new ArrayList<>();
         this.jdbc.getConnection(ar -> {
             SQLConnection connection = ar.result();
             connection.query("select * from question", result -> {
                 List<JsonObject> results = new ArrayList<>();
                 results = result.result().getRows();
+                for (JsonObject i: results) {
+                    this.getObjects().add(i);
+                }
                 routingContext.response()
                         .putHeader("content-type", "application/json; charset=utf-8")
                         .end(Json.encodePrettily(results));
@@ -57,5 +76,15 @@ public class SQLCRUD {
         });
     }
 
+    public int returnGrade(List<JsonObject> testresults, JsonObject testanswer) {
+        int grade = 0;
+        for (JsonObject i: testresults) {
+            if (i.getString("answer").equals(testanswer.getString(i.getString("ID")))) {
+                System.out.println((i.getString("answer") + " ? " + testanswer.getString(i.getString("ID"))));
+                grade++;
+            }
+        }
+        return grade;
+    }
 
 }

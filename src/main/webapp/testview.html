@@ -10,14 +10,18 @@
 <h1 style="text-align: center">English Test</h1>
 <div id="qwerty"></div>
 <div>
-    <button id="submit1" type="submit" onclick="getAllAnswers(array)">Submit answer</button>
+    <button id="submit1" type="button" onclick="getAllAnswers(map)">Submit answer</button>
 </div>
-<div>
-    <button id="submit2" type="button" onclick="getAnswer()">Fetch!</button>
-</div>
+
 <script>
-    function getAnswer() {
-        const url = "http://localhost:5000/answer";
+
+
+    let map = new Map();
+
+    getResources();
+
+    function getResources() {
+        const url = "http://localhost:5000/test";
         fetch(url, {method: "GET"})
         .then(hello => hello.json())
         .then(hello => {
@@ -85,19 +89,32 @@
         form.append(divD);
         container.append(form);
         // container.append(document.createElement(""));
-        document.body.append(container);
+        document.getElementById("qwerty").append(container);
     }
 
-
-    let array = new Map();
-    function getAllAnswers(array) {
+    function getAllAnswers(map) {
         let forms = document.getElementsByTagName("form");
         for (let i of forms) {
                 var radVal = i.a1.value;
-                array[i.id] = radVal;
+                map[i.id] = radVal;
         };
-        console.log(array);
+        console.log(map);
+        const URL = 'http://localhost:5000/form';
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", URL);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.responseText);
+            }};
+        xhr.send(JSON.stringify(map));
+        window.location.replace("http://localhost:5000/form");
     }
+
+
 
 </script>
 </body>

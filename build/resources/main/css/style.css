@@ -1,6 +1,7 @@
 
 body {
     background-color: transparent;
+    background-image: url("/resources/images/northernlights1.jpg");
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,23 +9,6 @@ body {
     font-family: Calibri;
 }
 
-body::before {
-    content: "";
-    /*background-image: url("../images/northern.jpg");*/ /*for running directly with html files*/
-    background-image: url("/resources/images/northernlights1.jpg"); /*for vertx*/
-    opacity: 0.25;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-}
-
-
- label {
-
- }
 
 
 
@@ -37,6 +21,7 @@ body::before {
      padding: 70px;
      margin-inline: 20vw;
      background-color: white;
+     margin-bottom: 10vw;
  }
 
 

@@ -1,79 +1,102 @@
-function input(appy) {
-let container = document.createElement("div");
-container.setAttribute("class", "containers");
-container.id = appy.ID;
-let form = document.createElement("form");
-let ques = document.createElement("h1");
-let A = document.createElement("input");
-let B = document.createElement("input");
-let C = document.createElement("input");
-let D = document.createElement("input");
-A.setAttribute("type", "radio");
-B.setAttribute("type", "radio");
-C.setAttribute("type", "radio");
-D.setAttribute("type", "radio");
-ques.innerText = appy.question
-A.setAttribute("name", appy.id);
-B.setAttribute("name", appy.id);
-C.setAttribute("name", appy.id);
-D.setAttribute("name", appy.id);
-A.setAttribute("value", appy.A);
-B.setAttribute("value", appy.B);
-C.setAttribute("value", appy.C);
-D.setAttribute("value", appy.D);
-form.append(A);
-form.append(B);
-form.append(C);
-form.append(D);
-document.body.append(form);
+<!--function input(appy) {-->
+<!--let container = document.createElement("div");-->
+<!--container.setAttribute("class", "containers");-->
+<!--container.id = appy.ID;-->
+<!--let form = document.createElement("form");-->
+<!--let ques = document.createElement("h1");-->
+<!--let A = document.createElement("input");-->
+<!--let B = document.createElement("input");-->
+<!--let C = document.createElement("input");-->
+<!--let D = document.createElement("input");-->
+<!--A.setAttribute("type", "radio");-->
+<!--B.setAttribute("type", "radio");-->
+<!--C.setAttribute("type", "radio");-->
+<!--D.setAttribute("type", "radio");-->
+<!--ques.innerText = appy.question-->
+<!--A.setAttribute("name", appy.id);-->
+<!--B.setAttribute("name", appy.id);-->
+<!--C.setAttribute("name", appy.id);-->
+<!--D.setAttribute("name", appy.id);-->
+<!--A.setAttribute("value", appy.A);-->
+<!--B.setAttribute("value", appy.B);-->
+<!--C.setAttribute("value", appy.C);-->
+<!--D.setAttribute("value", appy.D);-->
+<!--form.append(A);-->
+<!--form.append(B);-->
+<!--form.append(C);-->
+<!--form.append(D);-->
+<!--document.body.append(form);-->
 
-}
-
-
+<!--}-->
 
 
-<div id="container" class="containers">
-    <form id="ID1" method="post" action="answer1">
-        <h1 id = question name="question">Question 1: Who is the president of the United States</h1>
-        <div class="answers">
-            <input type="radio" id="A" name="a1" value="huey">
-            <label for="A">Huey</label>
-        </div>
-        <div class="answers">
-            <input type="radio" id="B" name="a1" value="dewey">
-            <label for="B">Dewey</label>
-        </div>
-        <div class="answers">
-            <input type="radio" id="C" name="a1" value="louie">
-            <label for="C">Louie</label>
-        </div>
-        <div class="answers">
-            <input type="radio" id="D" name="a1" value="touie">
-            <label for="D">Touie</label>
-        </div>
-    </form>
-</div>
 
 
-<div id="container1" class="containers">
-    <form id="ID2" method="post" action="answer1">
-        <h1 id = question1 name="question1">Question 1: Who is the president of the United States</h1>
-        <div class="answers">
-            <input type="radio" id="A1" name="a1" value="huey">
-            <label for="A1">Huey</label>
-        </div>
-        <div class="answers">
-            <input type="radio" id="B1" name="a1" value="dewey">
-            <label for="B1">Dewey</label>
-        </div>
-        <div class="answers">
-            <input type="radio" id="C1" name="a1" value="louie">
-            <label for="C1">Louie</label>
-        </div>
-        <div class="answers">
-            <input type="radio" id="D1" name="a1" value="touie">
-            <label for="D1">Touie</label>
-        </div>
-        <br />
-    </form>
-</div>
+<!--<div id="container" class="containers">-->
+<!--    <form id="ID1" method="post" action="answer1">-->
+<!--        <h1 id = question name="question">Question 1: Who is the president of the United States</h1>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="A" name="a1" value="huey">-->
+<!--            <label for="A">Huey</label>-->
+<!--        </div>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="B" name="a1" value="dewey">-->
+<!--            <label for="B">Dewey</label>-->
+<!--        </div>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="C" name="a1" value="louie">-->
+<!--            <label for="C">Louie</label>-->
+<!--        </div>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="D" name="a1" value="touie">-->
+<!--            <label for="D">Touie</label>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<!--<div id="container1" class="containers">-->
+<!--    <form id="ID2" method="post" action="answer1">-->
+<!--        <h1 id = question1 name="question1">Question 1: Who is the president of the United States</h1>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="A1" name="a1" value="huey">-->
+<!--            <label for="A1">Huey</label>-->
+<!--        </div>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="B1" name="a1" value="dewey">-->
+<!--            <label for="B1">Dewey</label>-->
+<!--        </div>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="C1" name="a1" value="louie">-->
+<!--            <label for="C1">Louie</label>-->
+<!--        </div>-->
+<!--        <div class="answers">-->
+<!--            <input type="radio" id="D1" name="a1" value="touie">-->
+<!--            <label for="D1">Touie</label>-->
+<!--        </div>-->
+<!--        <br />-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<!--function sendAnswer(map) {-->
+
+<!--const URL = 'http://localhost:5000/form';-->
+<!--var xhr = new XMLHttpRequest();-->
+<!--xhr.open("POST", URL);-->
+<!--xhr.setRequestHeader("Accept", "application/json");-->
+<!--xhr.setRequestHeader("Content-Type", "application/json");-->
+<!--xhr.send(JSON.stringify(map));-->
+
+<!--}-->
+
+//     fetch(URL, {
+//         method: 'POST',
+//         headers: {
+//             "Accept": "application/json",
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(map),
+//     })
+//         .then(response => response.json())
+// }
