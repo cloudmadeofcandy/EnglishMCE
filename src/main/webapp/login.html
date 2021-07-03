@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>English MCE - Take the test</title>
+</head>
+<body>
+<div id = "squeeze" class="login">
+    <form id = "verification" action="verify" method="post" onclick="choose()">
+        <div id="divtest">
+            <input type="radio" id="test" value="test" name="verify">
+            <label for="test">Take the test!</label>
+        </div>
+        <div id="divlogin">
+            <input type="radio" id="login" value="login" name="verify">
+            <label for="test">Login to modify the test bank</label>
+        </div>
+        <div>
+            <button id="submit" type="button" onclick="">Submit</button>
+        </div>
+    </form>
+</div>
+<div id="hello"></div>
+</body>
+<script>
+    function choose() {
+        let option = document.querySelector('input[name="verify"]:checked');
+        let signal = option.getAttribute("value");
+        console.log(signal);
+        if (signal === "test") {
+            let formbox = document.createElement("form");
+            formbox.setAttribute("action", "main");
+            formbox.setAttribute("method", "POST");
+            let namebox = document.createElement("input");
+            namebox.setAttribute("type", "text");
+            namebox.setAttribute("id", "info");
+            namebox.setAttribute("name", "name");
+            formbox.append(namebox);
+            let commence = document.createElement("button");
+            commence.setAttribute("type", "submit");
+            commence.setAttribute("id", "commence");
+            commence.innerHTML = "Begin your test";
+            formbox.append(commence);
+            document.getElementById("hello").append(formbox);
+        }
+        else if (signal === "login") {
+            let formbox = document.createElement("form");
+            formbox.setAttribute("action", "main");
+            formbox.setAttribute("method", "POST");
+            let namebox = document.createElement("input");
+            namebox.setAttribute("type", "text");
+            namebox.setAttribute("id", "info");
+            namebox.setAttribute("name", "name");
+            formbox.append(namebox);
+            let passbox = document.createElement("input");
+            passbox.setAttribute("type", "password");
+            passbox.setAttribute("id", "pass");
+            passbox.setAttribute("name", "pass");
+            formbox.append(passbox);
+            let commence = document.createElement("button");
+            commence.setAttribute("type", "submit");
+            commence.setAttribute("id", "login");
+            commence.innerHTML = "Login";
+            formbox.append(commence);
+            document.getElementById("hello").append(formbox);
+        }
+    }
+
+
+</script>
+</html>
