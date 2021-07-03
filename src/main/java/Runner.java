@@ -47,8 +47,6 @@ public class Runner {
         router.route(HttpMethod.POST,"/main").handler(ctx -> {
             String body = ctx.getBodyAsString();
             System.out.println(body);
-//            JsonObject json = ctx.getBodyAsJson();
-//            System.out.println(json);
             ctx.response().putHeader("content-type", "text/html");
             ctx.response().sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/testview.html");
         });
@@ -57,12 +55,18 @@ public class Runner {
             controller.getAllret(ctx);
         });
 
+
+        final int[] d = {0};
         router.route(HttpMethod.POST, "/form").handler(rc -> {
             JsonObject json = new JsonObject();
             json = rc.getBodyAsJson();
-            rc.response().putHeader("content-type", "text/html").end("json.encodePrettily()");
             List<JsonObject> answer = controller.getObjects();
-            int d = controller.returnGrade(answer, json);
+            d[0] = controller.returnGrade(answer, json);
+            rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).send(json.encode());
+        });
+
+        router.route(HttpMethod.GET, "/result").handler(ctx -> {
+            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).end(Buffer.buffer("Good morning"));
         });
 
 

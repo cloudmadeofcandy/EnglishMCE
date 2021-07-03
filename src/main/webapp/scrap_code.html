@@ -100,3 +100,49 @@
 //     })
 //         .then(response => response.json())
 // }
+
+// let forms = document.getElementsByTagName("form");
+// for (let i of forms) {
+//     var radVal = i.a1.value;
+//     map.set(i.id, radVal);
+// };
+// console.log(map);
+//
+// const URL = 'http://localhost:5000/form';
+// var xhr = new XMLHttpRequest();
+// xhr.open("POST", URL);
+// xhr.setRequestHeader("Accept", "application/json");
+// xhr.setRequestHeader("Content-Type", "application/json");
+// xhr.send(JSON.stringify(map));
+// window.location.href = "http://localhost:5000/form";
+//
+
+// var xhr = new XMLHttpRequest();
+// xhr.open("POST", URL);
+// xhr.setRequestHeader("Accept", "application/json");
+// xhr.setRequestHeader("Content-Type", "application/json");
+//
+// xhr.onreadystatechange = function () {
+//     if (xhr.readyState === 4) {
+//         console.log(xhr.status);
+//         console.log(xhr.responseText);
+//     }};
+// xhr.send(JSON.stringify(map));
+// window.location.replace("http://localhost:5000/form");
+
+
+
+var hiddenForm = document.createElement('form');
+hiddenForm.setAttribute('method', "POST");
+hiddenForm.setAttribute('action', URL);
+
+
+for (const [key, value] of map.entries()) {
+var hiddenField = document.createElement('input');
+hiddenField.setAttribute('type', 'hidden');
+hiddenField.setAttribute('name', key);
+hiddenField.setAttribute('value', value);
+hiddenForm.appendChild(hiddenField);
+document.body.appendChild(hiddenForm);
+hiddenForm.submit();
+}
