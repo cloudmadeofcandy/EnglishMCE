@@ -9,6 +9,7 @@ import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.RoutingContext;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -75,6 +76,23 @@ public class SQLCRUD {
                 connection.close(); // Close the connection
             });
         });
+    }
+
+
+    public void insertRecord(String[] info, RoutingContext ctx) {
+         this.jdbc.getConnection(event -> {
+             if (event.succeeded()) {
+                 SQLConnection connection = event.result();
+                 java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+                 connection.updateWithParams("INSERT INTO RECORD VALUES ? , ?, ?", new JsonArray().add(info[0]).add(date).add(info[1]), event1 -> {
+                     if (event1.failed()) {
+
+                         connection.close();
+                         return;
+                     }
+                 });
+             }
+         });
     }
 
     public int returnGrade(List<JsonObject> testresults, JsonObject testanswer) {

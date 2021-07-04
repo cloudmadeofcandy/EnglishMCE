@@ -146,3 +146,57 @@ hiddenForm.appendChild(hiddenField);
 document.body.appendChild(hiddenForm);
 hiddenForm.submit();
 }
+
+
+router.route(HttpMethod.POST, "/form").handler(rc -> {
+JsonObject json = new JsonObject();
+json = rc.getBodyAsJson();
+List<JsonObject> answer = controller.getObjects();
+    d[0] = controller.returnGrade(answer, json);
+    JsonObject ret = new JsonObject().put("result", d[0]);
+    System.out.println(ret.encodePrettily());
+    rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).send(ret.encode());
+    });
+
+let d = fetch(URL, {
+method: 'POST',
+redirect: 'follow',
+headers: {
+'Content-Type': 'application/json',
+'Accept': 'application/json'
+},
+body: JSON.stringify(map),
+})
+.then(response => response.json())
+
+}
+
+function sendData(url,data) {
+var form = document.createElement("form");
+form.method = 'post';
+form.action = url;
+var input = document.createElement('input');
+input.type = "text";
+input.name = "data";
+input.value = data;
+form.appendChild(input);
+form.submit();
+}
+
+
+router.route(HttpMethod.POST, "/form").handler(rc -> {
+String data = rc.getBodyAsString();
+String inter[] = data.split("=");
+JsonObject json = new JsonObject(inter[1]);
+System.out.println(json.encodePrettily());
+List<JsonObject> answer = controller.getObjects();
+    d[0] = controller.returnGrade(answer, json);
+    JsonObject ret = new JsonObject().put("result", d[0]);
+    rc.response().setChunked(true);
+    rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).write(ret.encode());
+    rc.response().end("Hello World");
+    });
+
+    router.route(HttpMethod.GET, "/result").handler(ctx -> {
+
+    });

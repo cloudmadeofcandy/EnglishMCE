@@ -25,12 +25,12 @@
     function getResources() {
         const url = "http://localhost:5000/test";
         fetch(url, {method: "GET"})
-        .then(hello => hello.json())
-        .then(hello => {
-            for (let i of hello) {
-                input(i);
-            }
-        });
+            .then(hello => hello.json())
+            .then(hello => {
+                for (let i of hello) {
+                    input(i);
+                }
+            });
     }
 
     function input(appy) {
@@ -101,20 +101,44 @@
             var radVal = i.a1.value;
             map[abc] = radVal;
             // map.set(abc, radVal);
-        };
-        console.log(map);
+        }
+        ;
+        console.log(JSON.stringify(map));
         const URL = 'http://localhost:5000/form';
+
+
+        let data = JSON.stringify(map);
+        let obj;
         fetch(URL, {
             method: 'POST',
+            redirect: 'follow',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify(map),
         })
-            .then(response => console.log(response.json()))
+            .then(response => response.json())
+            .then(data => {
+                obj = data;
+                return data
+            })
+            .then(data => buildHTMLaroundDOM(data));
+    }
 
-     }
+
+    function buildHTMLaroundDOM(response) {
+        document.body.textContent = '';
+        let container = document.createElement("div");
+        container.style.justifyContent = "space-around";
+        container.style.textAlign = "center";
+        container.className = "containers";
+        let outputText = document.createElement("h1");
+        outputText.innerText = ("Congratulation! You did good!\nYour test score is " + response.result);
+        container.append(outputText);
+        document.body.append(container);
+    }
+
 
 </script>
 </body>

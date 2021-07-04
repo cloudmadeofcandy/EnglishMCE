@@ -43,7 +43,7 @@ public class Runner {
         });
 
 
-        
+
         router.route(HttpMethod.POST,"/main").handler(ctx -> {
             String body = ctx.getBodyAsString();
             System.out.println(body);
@@ -62,11 +62,13 @@ public class Runner {
             json = rc.getBodyAsJson();
             List<JsonObject> answer = controller.getObjects();
             d[0] = controller.returnGrade(answer, json);
-            rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).send(json.encode());
+            JsonObject ret = new JsonObject().put("result", d[0] + " out of " + json.size());
+            System.out.println(ret.encodePrettily());
+            rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).send(ret.encode());
         });
 
         router.route(HttpMethod.GET, "/result").handler(ctx -> {
-            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).end(Buffer.buffer("Good morning"));
+
         });
 
 
