@@ -79,16 +79,20 @@ public class SQLCRUD {
     }
 
 
-    public void insertRecord(String[] info, RoutingContext ctx) {
+    public void insertRecord(JsonObject info, RoutingContext ctx) {
          this.jdbc.getConnection(event -> {
              if (event.succeeded()) {
                  SQLConnection connection = event.result();
                  java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
-                 connection.updateWithParams("INSERT INTO RECORD VALUES ? , ?, ?", new JsonArray().add(info[0]).add(date).add(info[1]), event1 -> {
-                     if (event1.failed()) {
-
+                 System.out.println(date);
+                 connection.updateWithParams("INSERT INTO RECORD (name, testdate, result) VALUES (?, ?, ?)", new JsonArray().add(info.getValue("name")).add(date).add(info.getValue("result")), event1 -> {
+                     if(event1.failed()) {
+                         event1.cause().printStackTrace();
                          connection.close();
-                         return;
+                     }
+                     else {
+                         System.out.println(event1.result().toJson());
+                         connection.close();
                      }
                  });
              }

@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Runner {
     public static void main(String[] args) {
@@ -43,9 +44,10 @@ public class Runner {
         });
 
 
-
+        AtomicReference<String> body = new AtomicReference<>();
         router.route(HttpMethod.POST,"/main").handler(ctx -> {
-            String body = ctx.getBodyAsString();
+            String[] res = ctx.getBodyAsString().split("=");
+            body.set(res[1]);
             System.out.println(body);
             ctx.response().putHeader("content-type", "text/html");
             ctx.response().sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/testview.html");
@@ -62,8 +64,9 @@ public class Runner {
             json = rc.getBodyAsJson();
             List<JsonObject> answer = controller.getObjects();
             d[0] = controller.returnGrade(answer, json);
-            JsonObject ret = new JsonObject().put("result", d[0] + " out of " + json.size());
+            JsonObject ret = new JsonObject().put("name", body.get()).put("result", d[0] + " out of " + json.size());
             System.out.println(ret.encodePrettily());
+            controller.insertRecord(ret, rc);
             rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).send(ret.encode());
         });
 
