@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 #total {
     display: flex;
     height: 100vh;
@@ -25,6 +29,11 @@
 
 #left a:hover {
     background-color: #ddd;
+    color: black;
+}
+
+#left a:focus {
+    background-color: red;
     color: black;
 }
 

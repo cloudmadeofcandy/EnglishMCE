@@ -13,7 +13,7 @@
     <a onclick="record()">My records</a>
 </div>
     <div id="right">
-        <iframe id="frame"></iframe>
+        <iframe id="frame" src="/myquestion"></iframe>
     </div>
 </div>
 
@@ -21,16 +21,19 @@
 
     function question() {
         let f = document.getElementById("frame");
+        f.textContent = "";
         f.src = "/myquestion"
     }
 
     function admin() {
         let f = document.getElementById("frame");
+        f.textContent = "";
         f.src = "/myadmin"
     }
 
     function record() {
         let f = document.getElementById("frame");
+        f.textContent = "";
         f.src = "/myrecords"
     }
 

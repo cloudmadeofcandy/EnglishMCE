@@ -28,6 +28,11 @@
     color: black;
 }
 
+#left a:focus {
+    background-color: red;
+    color: black;
+}
+
 
 #right {
     width: 85%;
