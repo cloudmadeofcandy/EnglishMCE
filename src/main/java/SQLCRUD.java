@@ -12,6 +12,7 @@ import io.vertx.ext.web.RoutingContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SQLCRUD {
 
@@ -65,6 +66,25 @@ public class SQLCRUD {
         this.jdbc.getConnection(ar -> {
             SQLConnection connection = ar.result();
             connection.query("select * from question", result -> {
+                List<JsonObject> results = new ArrayList<>();
+                results = result.result().getRows();
+                for (JsonObject i : results) {
+                    this.getObjects().add(i);
+                }
+                routingContext.response()
+                        .putHeader("content-type", "application/json; charset=utf-8")
+                        .end(Json.encodePrettily(results));
+                connection.close(); // Close the connection
+            });
+        });
+    }
+
+
+    public void getNumret(AtomicReference<Integer> num, RoutingContext routingContext) {
+        objects = new ArrayList<>();
+        this.jdbc.getConnection(ar -> {
+            SQLConnection connection = ar.result();
+            connection.query("SELECT TOP " + num.get() + "* FROM question ORDER BY NEWID()", result -> {
                 List<JsonObject> results = new ArrayList<>();
                 results = result.result().getRows();
                 for (JsonObject i : results) {

@@ -1,0 +1,46 @@
+#total {
+    display: flex;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+#left {
+    height: 100vh;
+    width: 15%;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+}
+
+
+#left a {
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#left a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+#right {
+    width: 85%;
+    background-color: white;
+    /*overflow: auto;*/
+}
+
+#frame {
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}

@@ -47,16 +47,23 @@ public class Runner {
 
 
         AtomicReference<String> body = new AtomicReference<>();
+        AtomicReference<Integer> num = new AtomicReference<>();
         router.route(HttpMethod.POST,"/main").handler(ctx -> {
-            String[] res = ctx.getBodyAsString().split("=");
-            body.set(res[1]);
-            System.out.println(body);
+            String res = ctx.getBodyAsString();
+            Pattern p = Pattern.compile("(name)=([A-Za-z0-9\\s]+)&(num)=([0-9\\s]+)");
+            Matcher m;
+            m = p.matcher(res);
+            if (m.find()) {
+                body.set(m.group(2));
+                num.set(Integer.parseInt(m.group(4)));
+            }
+            System.out.println(body + "------" + num);
             ctx.response().putHeader("content-type", "text/html");
             ctx.response().sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/testview.html");
         });
 
         router.route(HttpMethod.GET, "/test").handler(ctx -> {
-            controller.getAllret(ctx);
+            controller.getNumret(num, ctx);
         });
 
         router.route(HttpMethod.GET, "/listofids").handler(ctx -> {
