@@ -98,6 +98,25 @@ public class SQLCRUD {
     }
 
 
+    public void getAllrecords(RoutingContext routingContext) {
+        objects = new ArrayList<>();
+        this.jdbc.getConnection(ar -> {
+            SQLConnection connection = ar.result();
+            connection.query("select * from record", result -> {
+                List<JsonObject> results = new ArrayList<>();
+                results = result.result().getRows();
+                for (JsonObject i : results) {
+                    this.getObjects().add(i);
+                }
+                routingContext.response()
+                        .putHeader("content-type", "application/json; charset=utf-8")
+                        .end(Json.encodePrettily(results));
+                connection.close(); // Close the connection
+            });
+        });
+    }
+
+
     public void createQuestion(JsonObject json, RoutingContext ctx) {
         this.jdbc.getConnection(event -> {
             if (event.succeeded()) {

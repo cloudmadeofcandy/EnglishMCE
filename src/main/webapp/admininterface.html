@@ -10,6 +10,7 @@
 <div id="left">
     <a onclick="question()">My questions</a>
     <a onclick="admin()">My admins</a>
+    <a onclick="record()">My records</a>
 </div>
     <div id="right">
         <iframe id="frame"></iframe>
@@ -26,6 +27,11 @@
     function admin() {
         let f = document.getElementById("frame");
         f.src = "/myadmin"
+    }
+
+    function record() {
+        let f = document.getElementById("frame");
+        f.src = "/myrecords"
     }
 
 </script>

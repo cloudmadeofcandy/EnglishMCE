@@ -53,23 +53,6 @@
         }
     }
 
-    function identify() {
-        let usr = document.getElementById("username").value;
-        let pass = document.getElementById("pass").value;
-        let map = {"NAME":usr,"PASSWORD":pass};
-        console.log(map);
-        let URL = "http://localhost:5000/myadmin"
-        fetch(URL, {
-            method: 'POST',
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(map),
-        })
-            .then(response => response.json())
-    }
 
 
 </script>

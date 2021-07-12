@@ -75,7 +75,7 @@
         $("#content").children().remove();
         $.getJSON("/listofids", function (data) {
             $.each(data, function (key, val) {
-                $("<tr><td>" + val.ID + "</td><td>" + val.NAME + "</td><td>" + val.PASSWORD + "</td><td>" +
+                $("<tr><td width='10%'>" + val.ID + "</td><td width='40%'>" + val.NAME + "</td><td width='40%'>" + val.PASSWORD + "</td><td style='width: fit-content'>"  +
                     "<button data-action='edit' class='btn btn-primary btn-sm product-edit' " +
                     "data-toggle='modal' " +
                     "data-target='#productModal' " +

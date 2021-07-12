@@ -63,6 +63,10 @@ public class Runner {
             controller.getAllAdmin(ctx);
         });
 
+        router.route(HttpMethod.GET, "/records").handler(ctx -> {
+            controller.getAllrecords(ctx);
+        });
+
 
         final int[] d = {0};
         router.route(HttpMethod.POST, "/form").handler(rc -> {
@@ -82,6 +86,11 @@ public class Runner {
 
         router.route(HttpMethod.GET, "/myadmin").handler(ctx -> {
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/myadmin.html");
+        });
+
+
+        router.route(HttpMethod.GET, "/myrecords").handler(ctx -> {
+            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/myrecords.html");
         });
 
 
