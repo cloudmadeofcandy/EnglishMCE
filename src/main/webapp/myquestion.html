@@ -80,7 +80,7 @@
 
     function load() {
         $("#content").children().remove();
-        $.getJSON("/test", function (data) {
+        $.getJSON("/alltest", function (data) {
             $.each(data, function (key, val) {
                 $("<tr><td>" + val.ID + "</td><td>" + val.QUESTION + "</td><td>" + val.A + "</td>" +
                     "<td>" + val.B + "</td><td>" + val.C +"</td><td>" + val.D + "</td><td>" + val.answer + "</td><td>" +

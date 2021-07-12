@@ -66,6 +66,10 @@ public class Runner {
             controller.getNumret(num, ctx);
         });
 
+        router.route(HttpMethod.GET, "/alltest").handler(ctx -> {
+            controller.getAllret(ctx);
+        });
+
         router.route(HttpMethod.GET, "/listofids").handler(ctx -> {
             controller.getAllAdmin(ctx);
         });
