@@ -200,3 +200,7 @@ List<JsonObject> answer = controller.getObjects();
     router.route(HttpMethod.GET, "/result").handler(ctx -> {
 
     });
+
+
+
+        SELECT * FROM question WHERE rate = 1 ORDER BY RAND() LIMIT 30) UNION (SELECT * FROM question WHERE rate = 2 ORDER BY RAND() LIMIT 15) UNION (SELECT * FROM question WHERE rate = 3 ORDER BY RAND() LIMIT 5)

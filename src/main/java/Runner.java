@@ -19,6 +19,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Runner {
     public static void main(String[] args) {
@@ -57,6 +59,10 @@ public class Runner {
             controller.getAllret(ctx);
         });
 
+        router.route(HttpMethod.GET, "/listofids").handler(ctx -> {
+            controller.getAllAdmin(ctx);
+        });
+
 
         final int[] d = {0};
         router.route(HttpMethod.POST, "/form").handler(rc -> {
@@ -70,9 +76,70 @@ public class Runner {
             rc.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).send(ret.encode());
         });
 
-        router.route(HttpMethod.GET, "/result").handler(ctx -> {
-
+        router.route(HttpMethod.GET, "/myquestion").handler(ctx -> {
+            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/myquestion.html");
         });
+
+        router.route(HttpMethod.GET, "/myadmin").handler(ctx -> {
+            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, HttpHeaders.TEXT_HTML).sendFile("/home/logiciel/Documents/Academy of Cryptography Techniques/EnglishMCE/src/main/webapp/myadmin.html");
+        });
+
+
+
+        router.route(HttpMethod.POST, "/admin").handler(ctx -> {
+            String q = ctx.getBodyAsString();
+            System.out.println("-----------"+q);
+            Pattern p = Pattern.compile("(NAME)=([A-Za-z0-9\\s]+)&(PASSWORD)=([A-Za-z0-9\\s]+)");
+            Matcher m;
+            m = p.matcher(q);
+            String[] ret = new String[4];
+            if (m.find()) {
+                ret[0] = m.group(1);
+                ret[1] = m.group(2);
+                ret[2] = m.group(3);
+                ret[3] = m.group(4);
+            }
+            JsonObject info = new JsonObject().put(ret[0], ret[1]).put(ret[2], ret[3]);
+            ctx.response().putHeader("content-type", "text/html");
+            ctx.response().setChunked(true);
+            controller.returnUsers(info, ctx);
+        });
+
+
+
+
+        router.route("/createquestion").handler(ctx -> {
+            JsonObject json = ctx.getBodyAsJson();
+            controller.createQuestion(json, ctx);
+        });
+
+        router.route("/updatequestion").handler(ctx -> {
+            JsonObject json = ctx.getBodyAsJson();
+            controller.updateQuestion(json, ctx);
+        });
+
+        router.route("/deletequestion").handler(ctx -> {
+            JsonObject json = ctx.getBodyAsJson();
+            System.out.println(json);
+            controller.deleteQuestion(json, ctx);
+        });
+
+
+        router.route("/createadmin").handler(ctx -> {
+            JsonObject json = ctx.getBodyAsJson();
+            controller.createAdmin(json, ctx);
+        });
+
+        router.route("/updateadmin").handler(ctx -> {
+            JsonObject json = ctx.getBodyAsJson();
+            controller.updateAdmin(json, ctx);
+        });
+
+        router.route("/deleteadmin").handler(ctx -> {
+            JsonObject json = ctx.getBodyAsJson();
+            controller.deleteAdmin(json, ctx);
+        });
+
 
 
         server.requestHandler(router).listen(5000);

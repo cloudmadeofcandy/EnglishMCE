@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/resources/css/style3.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="total">
+<div id="left">
+    <a onclick="question()">My questions</a>
+    <a onclick="admin()">My admins</a>
+</div>
+    <div id="right">
+        <iframe id="frame"></iframe>
+    </div>
+</div>
+
+<script>
+
+    function question() {
+        let f = document.getElementById("frame");
+        f.src = "/myquestion"
+    }
+
+    function admin() {
+        let f = document.getElementById("frame");
+        f.src = "/myadmin"
+    }
+
+</script>
+</body>
+</html>
