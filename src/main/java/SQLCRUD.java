@@ -22,9 +22,9 @@ public class SQLCRUD {
     public SQLCRUD(Vertx vertx) {
         JsonObject config = new JsonObject("{\n" +
                 "  \"db\": {\n" +
-                "    \"url\": \"jdbc:sqlserver://localhost:1433;databaseName=hello\",\n" +
+                "    \"url\": \"jdbc:sqlserver://<CLASSIFIED>;databaseName=<CLASSIFIED>\",\n" +
                 "    \"user\": \"sa\",\n" +
-                "    \"password\": \"C@ndycloud1410\"\n" +
+                "    \"password\": \"<CLASSIFIED>\"\n" +
                 "  }\n" +
                 "}").getJsonObject("db");
         jdbc = JDBCClient.createShared(vertx, config, "EnglishMCETestBank");
